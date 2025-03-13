@@ -1,3 +1,3 @@
-C:/Users/w'l'pa'r/CLionProjects/pascal2c/cmake-build-debug/CMakeFiles/pascal2c.dir
-C:/Users/w'l'pa'r/CLionProjects/pascal2c/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/w'l'pa'r/CLionProjects/pascal2c/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Code/cpp/pascal2c/cmake-build-debug/CMakeFiles/pascal2c.dir
+C:/Code/cpp/pascal2c/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Code/cpp/pascal2c/cmake-build-debug/CMakeFiles/rebuild_cache.dir

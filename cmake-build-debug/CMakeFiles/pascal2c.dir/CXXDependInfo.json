@@ -1,0 +1,18 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "GNU",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : {},
+	"dir-cur-bld" : "C:/Code/cpp/pascal2c/cmake-build-debug",
+	"dir-cur-src" : "C:/Code/cpp/pascal2c",
+	"dir-top-bld" : "C:/Code/cpp/pascal2c/cmake-build-debug",
+	"dir-top-src" : "C:/Code/cpp/pascal2c",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : [],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "C:/Code/cpp/pascal2c/cmake-build-debug/CMakeFiles/pascal2c.dir"
+}

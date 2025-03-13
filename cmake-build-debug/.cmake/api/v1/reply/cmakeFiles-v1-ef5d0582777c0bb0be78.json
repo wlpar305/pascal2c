@@ -802,11 +802,6 @@
 		{
 			"isCMake" : true,
 			"isExternal" : true,
-			"path" : "C:/Program Files/JetBrains/CLion 2024.2.3/bin/cmake/win/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX-FeatureTests.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
 			"path" : "C:/Program Files/JetBrains/CLion 2024.2.3/bin/cmake/win/x64/share/cmake-3.29/Modules/CMakeCXXCompiler.cmake.in"
 		},
 		{
@@ -822,8 +817,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "C:/Users/w'l'pa'r/CLionProjects/pascal2c/cmake-build-debug",
-		"source" : "C:/Users/w'l'pa'r/CLionProjects/pascal2c"
+		"build" : "C:/Code/cpp/pascal2c/cmake-build-debug",
+		"source" : "C:/Code/cpp/pascal2c"
 	},
 	"version" : 
 	{

@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/w'l'pa'r/CLionProjects/pascal2c/cmake-build-debug"
+			"value" : "c:/Code/cpp/pascal2c/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -299,7 +299,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/MinGW64/bin/gcc.exe"
+			"value" : "C:/MinGW64/bin/cc.exe"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_AR",
@@ -575,7 +575,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/w'l'pa'r/CLionProjects/pascal2c/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Code/cpp/pascal2c/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -647,7 +647,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/w'l'pa'r/CLionProjects/pascal2c"
+			"value" : "C:/Code/cpp/pascal2c"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1279,7 +1279,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "FALSE"
+			"value" : "TRUE"
 		},
 		{
 			"name" : "pascal2c_BINARY_DIR",
@@ -1291,7 +1291,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/w'l'pa'r/CLionProjects/pascal2c/cmake-build-debug"
+			"value" : "C:/Code/cpp/pascal2c/cmake-build-debug"
 		},
 		{
 			"name" : "pascal2c_IS_TOP_LEVEL",
@@ -1315,7 +1315,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/w'l'pa'r/CLionProjects/pascal2c"
+			"value" : "C:/Code/cpp/pascal2c"
 		}
 	],
 	"kind" : "cache",

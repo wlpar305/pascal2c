@@ -10,14 +10,13 @@
 				{
 					"includeDirectories" : 
 					[
-						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include",
-						"C:/MinGW64/include",
-						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include-fixed",
+						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/14.2.0/include",
+						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/14.2.0/include-fixed",
 						"C:/MinGW64/x86_64-w64-mingw32/include"
 					],
 					"linkDirectories" : 
 					[
-						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2",
+						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/14.2.0",
 						"C:/MinGW64/lib/gcc",
 						"C:/MinGW64/x86_64-w64-mingw32/lib",
 						"C:/MinGW64/lib"
@@ -27,21 +26,21 @@
 					[
 						"mingw32",
 						"gcc",
-						"moldname",
 						"mingwex",
-						"pthread",
+						"kernel32",
 						"advapi32",
 						"shell32",
 						"user32",
 						"kernel32",
+						"iconv",
 						"mingw32",
 						"gcc",
-						"moldname",
-						"mingwex"
+						"mingwex",
+						"kernel32"
 					]
 				},
-				"path" : "C:/MinGW64/bin/gcc.exe",
-				"version" : "4.9.2"
+				"path" : "C:/MinGW64/bin/cc.exe",
+				"version" : "14.2.0"
 			},
 			"language" : "C",
 			"sourceFileExtensions" : 
@@ -58,17 +57,16 @@
 				{
 					"includeDirectories" : 
 					[
-						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++",
-						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++/x86_64-w64-mingw32",
-						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++/backward",
-						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include",
-						"C:/MinGW64/include",
-						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include-fixed",
+						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++",
+						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/x86_64-w64-mingw32",
+						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/14.2.0/include/c++/backward",
+						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/14.2.0/include",
+						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/14.2.0/include-fixed",
 						"C:/MinGW64/x86_64-w64-mingw32/include"
 					],
 					"linkDirectories" : 
 					[
-						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2",
+						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/14.2.0",
 						"C:/MinGW64/lib/gcc",
 						"C:/MinGW64/x86_64-w64-mingw32/lib",
 						"C:/MinGW64/lib"
@@ -76,24 +74,26 @@
 					"linkFrameworkDirectories" : [],
 					"linkLibraries" : 
 					[
-						"C:/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/libstdc++.a",
+						"stdc++",
 						"mingw32",
+						"gcc_s",
 						"gcc",
-						"moldname",
 						"mingwex",
-						"pthread",
+						"kernel32",
 						"advapi32",
 						"shell32",
 						"user32",
 						"kernel32",
+						"iconv",
 						"mingw32",
+						"gcc_s",
 						"gcc",
-						"moldname",
-						"mingwex"
+						"mingwex",
+						"kernel32"
 					]
 				},
 				"path" : "C:/MinGW64/bin/c++.exe",
-				"version" : "4.9.2"
+				"version" : "14.2.0"
 			},
 			"language" : "CXX",
 			"sourceFileExtensions" : 
