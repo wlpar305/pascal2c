@@ -11,6 +11,15 @@ public:
 
     static void init();
     static bool hasProcedure(std::string name);
+    
+    static llvm::Function* readlnPrototype(llvm::Module* module);
+    static void readArgsConstructor(std::string filename, int line, int column, llvm::IRBuilder<>* builder, std::vector<llvm::Value*>& args);
+    static void readlnArgsConstructor(std::string filename, int line, int column, llvm::IRBuilder<>* builder, std::vector<llvm::Value*>& args);
+
+    static llvm::Function* writelnPrototype(llvm::Module* module);
+    static void writeArgsConstructor(std::string filename, int line, int column, llvm::IRBuilder<>* builder, std::vector<llvm::Value*>& args);
+    static void writelnArgsConstructor(std::string filename, int line, int column, llvm::IRBuilder<>* builder, std::vector<llvm::Value*>& args);
+
 
 private:
     static std::string getFormatString(llvm::Type* type);
