@@ -86,6 +86,9 @@ public:
     Value* getRecordElement(Value* record, std::string& field);
     Value* loadIfPointer(llvm::Value* value);
     std::vector<llvm::Value*> castBinary(llvm::Value* lhs, llvm::Value* rhs);
+    void checkType(llvm::Value* value, const std::string& context);
+    void checkFunctionArgs(std::string func_name, llvm::Function* func, std::vector<llvm::Value*>& args);
+
 };
 
 #endif // CODEGENVISITOR_H
