@@ -1,5 +1,5 @@
 
-// Generated from PascalS.g4 by ANTLR 4.13.2
+// Generated from src/PascalS.g4 by ANTLR 4.13.2
 
 #pragma once
 
@@ -21,7 +21,8 @@ public:
     DIGIT = 41, EQUAL = 42, NEQUAL = 43, LT = 44, LE = 45, GT = 46, GE = 47, 
     PLUS = 48, MINUS = 49, MULT = 50, DIVIDE = 51, ASSIGNOP = 52, PERIODOP = 53, 
     DOT = 54, COMMA = 55, COLON = 56, SEMICOLON = 57, QUOTE = 58, LPAREN = 59, 
-    RPAREN = 60, LBRACKET = 61, RBRACKET = 62, NEWLINE = 63, WS = 64
+    RPAREN = 60, LBRACKET = 61, RBRACKET = 62, NEWLINE = 63, WS = 64, COMMENT_CURLY = 65, 
+    LINE_COMMENT = 66, COMMENT_PAREN_STAR = 67
   };
 
   enum {
@@ -127,10 +128,10 @@ public:
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *PROGRAM();
     antlr4::tree::TerminalNode *ID();
+    antlr4::tree::TerminalNode *SEMICOLON();
     antlr4::tree::TerminalNode *LPAREN();
     IdentifierListContext *identifierList();
     antlr4::tree::TerminalNode *RPAREN();
-    antlr4::tree::TerminalNode *SEMICOLON();
 
 
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;

@@ -120,7 +120,7 @@ WHILE: W H I L E;
 
 CHARLITERAL: QUOTE . QUOTE;
 
-ID: LETTER (LETTER | DIGIT)*;
+ID: LETTER (LETTER | DIGIT | '_')* ;
 
 LETTER: [a-zA-Z];
 
@@ -179,3 +179,7 @@ RBRACKET: ']';
 NEWLINE: '\r'? '\n' -> skip;
 
 WS: [ \t]+ -> skip;
+
+COMMENT_CURLY: '{' .*? '}' -> skip;
+LINE_COMMENT: '//' ~[\r\n]* ('\r'? '\n' | EOF) -> skip;
+COMMENT_PAREN_STAR: '(*' .*? '*)' -> skip;

@@ -3,7 +3,7 @@ import PascalSLexerRules;
 
 program: programHead programBody DOT;
 
-programHead: PROGRAM ID LPAREN identifierList RPAREN SEMICOLON;
+programHead: PROGRAM ID (LPAREN identifierList RPAREN)? SEMICOLON;
 
 programBody:
 	constDeclarations typeDeclarations varDeclarations subprogramDeclarations compoundStatement;
@@ -105,7 +105,7 @@ constList: constList COMMA constVariable | constVariable;
 
 updown: TO | DOWNTO;
 
-callProcedureStatement: ID | ID LPAREN expressionList RPAREN;
+callProcedureStatement: ID (LPAREN expressionList RPAREN)?;
 
 expressionList: expressionList COMMA expression | expression;
 
@@ -127,6 +127,7 @@ factor:
 	unsignConstVariable
 	| variable
 	| ID LPAREN expressionList RPAREN
+	| ID LPAREN RPAREN   
 	| LPAREN expression RPAREN
 	| NOT factor
 	| boolean;
