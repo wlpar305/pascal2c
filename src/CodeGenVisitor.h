@@ -81,7 +81,11 @@ public:
     antlrcpp::Any visitSimpleExpression(PascalSParser::SimpleExpressionContext* ctx) override;
     antlrcpp::Any visitBoolean(PascalSParser::BooleanContext* ctx) override;
     antlrcpp::Any visitVariable(PascalSParser::VariableContext* ctx) override;
-    
+
+    Value* getArrayElement(Value* array, std::vector<Value*> index);
+    Value* getRecordElement(Value* record, std::string& field);
+    Value* loadIfPointer(llvm::Value* value);
+    std::vector<llvm::Value*> castBinary(llvm::Value* lhs, llvm::Value* rhs);
 };
 
 #endif // CODEGENVISITOR_H
