@@ -72,6 +72,10 @@ public:
     antlrcpp::Any visitVarParameter(PascalSParser::VarParameterContext* ctx) override;
     antlrcpp::Any visitValueParameter(PascalSParser::ValueParameterContext* ctx) override;
 
+    antlrcpp::Any visitTerm(PascalSParser::TermContext* ctx) override;
+    antlrcpp::Any visitFactor(PascalSParser::FactorContext* ctx) override;
+    antlrcpp::Any visitAssignmentStatement(PascalSParser::AssignmentStatementContext* ctx) override;
+    antlrcpp::Any visitExpressionList(PascalSParser::ExpressionListContext* ctx) override;
 
 };
 
