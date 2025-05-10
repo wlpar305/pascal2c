@@ -42,3 +42,31 @@ bool StandardProcedure::hasProcedure(std::string name) {
     std::transform(name.begin(), name.end(), name.begin(), ::tolower);
     return prototypeMap.find(name) != prototypeMap.end();
 }
+
+llvm::Function* StandardProcedure::readlnPrototype(llvm::Module* module) {
+    llvm::FunctionType* scanf_type = llvm::FunctionType::get(llvm::Type::getVoidTy(module->getContext()), { llvm::Type::getInt8PtrTy(module->getContext()) }, true);
+    llvm::Function* func = module->getFunction("scanf");
+    if (!func) {
+        func = llvm::Function::Create(scanf_type, llvm::Function::ExternalLinkage, "scanf", module);
+    }
+    return func;
+}
+
+void StandardProcedure::readArgsConstructor(std::string filename, int line, int column, llvm::IRBuilder<>* builder, std::vector<llvm::Value*>& args) {
+    std::string format_string = "";
+    for (size_t i = 0; i < args.size(); ++i) {
+        llvm::Type* arg_type = llvm::cast<llvm::PointerType>(args[i]->getType())->getPointerElementType();
+        format_string += getFormatString(arg_type);
+    }
+    args.insert(args.begin(), builder->CreateGlobalStringPtr(format_string));
+}
+
+void StandardProcedure::readlnArgsConstructor(std::string filename, int line, int column, llvm::IRBuilder<>* builder, std::vector<llvm::Value*>& args) {
+    std::string format_string = "";
+    for (size_t i = 0; i < args.size(); ++i) {
+        llvm::Type* arg_type = llvm::cast<llvm::PointerType>(args[i]->getType())->getPointerElementType();
+        format_string += getFormatString(arg_type);
+    }
+    format_string += "\n";
+    args.insert(args.begin(), builder->CreateGlobalStringPtr(format_string));
+}
