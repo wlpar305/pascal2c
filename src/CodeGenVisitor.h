@@ -65,6 +65,13 @@ public:
     antlrcpp::Any visitBranch(PascalSParser::BranchContext* ctx) override;
     antlrcpp::Any visitBranchList(PascalSParser::BranchListContext* ctx) override;
 
+    antlrcpp::Any visitSubprogramDeclaration(PascalSParser::SubprogramDeclarationContext* ctx) override;
+    antlrcpp::Any visitSubprogramHead(PascalSParser::SubprogramHeadContext* ctx) override;
+    antlrcpp::Any visitParameterLists(PascalSParser::ParameterListsContext* ctx) override;
+    antlrcpp::Any visitParameterList(PascalSParser::ParameterListContext* ctx) override;
+    antlrcpp::Any visitVarParameter(PascalSParser::VarParameterContext* ctx) override;
+    antlrcpp::Any visitValueParameter(PascalSParser::ValueParameterContext* ctx) override;
+
 
 };
 
