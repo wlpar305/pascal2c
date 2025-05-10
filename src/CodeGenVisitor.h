@@ -27,6 +27,7 @@ private:
     llvm::Value* current_return_value = ConstantInt::get(context, APInt(32, 0));
     std::string filename;
     BasicBlock* current_loop_end;
+    std::vector<std::string> function_name_stack;
 
     void InitBuiltins();
 
@@ -77,7 +78,7 @@ public:
     antlrcpp::Any visitAssignmentStatement(PascalSParser::AssignmentStatementContext* ctx) override;
     antlrcpp::Any visitExpressionList(PascalSParser::ExpressionListContext* ctx) override;
     antlrcpp::Any visitCallProcedureStatement(PascalSParser::CallProcedureStatementContext* ctx) override;
-    antlrcpp::Any visitUnsignConstVariable(PascalSParser::UnsignConstVariableContext* ctx) override;
+    antlrcpp::Any visitUnsignConstLiteral(PascalSParser::UnsignConstLiteralContext* ctx) override;
     antlrcpp::Any visitSimpleExpression(PascalSParser::SimpleExpressionContext* ctx) override;
     antlrcpp::Any visitBoolean(PascalSParser::BooleanContext* ctx) override;
     antlrcpp::Any visitVariable(PascalSParser::VariableContext* ctx) override;

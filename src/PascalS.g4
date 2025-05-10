@@ -105,7 +105,7 @@ constList: constList COMMA constVariable | constVariable;
 
 updown: TO | DOWNTO;
 
-callProcedureStatement: ID (LPAREN expressionList RPAREN)?;
+callProcedureStatement: ID (LPAREN expressionList? RPAREN)?;
 
 expressionList: expressionList COMMA expression | expression;
 
@@ -124,7 +124,8 @@ term: term multiplyOperator factor | factor;
 boolean: TRUE | FALSE;
 
 factor:
-	unsignConstVariable
+	
+	unsignConstLiteral
 	| variable
 	| ID LPAREN expressionList RPAREN
 	| ID LPAREN RPAREN   
@@ -133,6 +134,8 @@ factor:
 	| boolean;
 
 unsignConstVariable: ID | NUM | CHARLITERAL;
+
+unsignConstLiteral: NUM | CHARLITERAL;
 
 relationalOpreator: EQUAL | NEQUAL | LT | LE | GT | GE;
 

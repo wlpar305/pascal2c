@@ -93,7 +93,7 @@ antlrcpp::Any CodeGenVisitor::visitConstVariable(PascalSParser::ConstVariableCon
 
         if (global == nullptr) {
             throw SemanticException(filename, ctx->getStart()->getLine(), ctx->getStart()->getCharPositionInLine(),
-                "identifier '" + identifier + "' was not declared in this scope or is not a constant");
+                "identifier(96) " + identifier + "' was not declared in this scope");
         } else {
             value = (llvm::ConstantInt*)global->getInitializer();
         }
@@ -578,6 +578,9 @@ antlrcpp::Any CodeGenVisitor::visitSubprogramDeclaration(PascalSParser::Subprogr
     prev_subprogram_scope->put(subprogram_name, func);
     visit(ctx->programBody());
 
+    if (!this->function_name_stack.empty()) {
+        this->function_name_stack.pop_back();
+    }
     scope = prev_scope;
     subprogram_scope = prev_subprogram_scope;
     current_return_value = prev_return_value;
@@ -588,6 +591,7 @@ antlrcpp::Any CodeGenVisitor::visitSubprogramDeclaration(PascalSParser::Subprogr
 
 antlrcpp::Any CodeGenVisitor::visitSubprogramHead(PascalSParser::SubprogramHeadContext* ctx) {
     std::string subprogram_name = ctx->ID()->getText();
+    this->function_name_stack.push_back(subprogram_name);
 
     llvm::Type* return_type = nullptr;
     llvm::Value* return_value = nullptr;
@@ -765,20 +769,11 @@ antlrcpp::Any CodeGenVisitor::visitExpression(PascalSParser::ExpressionContext* 
     return value;
 }
 
-antlrcpp::Any CodeGenVisitor::visitUnsignConstVariable(PascalSParser::UnsignConstVariableContext* ctx) {
+antlrcpp::Any CodeGenVisitor::visitUnsignConstLiteral(PascalSParser::UnsignConstLiteralContext* ctx) {
     // return: llvm::Value*
     Value* value = nullptr;
     //
-    if (ctx->ID()) {
-        // 处理ID
-        std::string var_name = ctx->ID()->getText();
-        // 假设变量已经声明并在符号表中可用
-        value = scope->get(var_name);
-        if (value == nullptr) {
-            throw SemanticException(filename, ctx->getStart()->getLine(), ctx->getStart()->getCharPositionInLine(),
-                "identifier '" + var_name + "' was not declared in this scope");
-        }
-    } else if (ctx->NUM()) {
+    if (ctx->NUM()) {
         // 处理NUM
         std::string num_str = ctx->NUM()->getText();
         if (num_str.find('.') != std::string::npos || num_str.find('E') != std::string::npos || num_str.find('e') != std::string::npos) {
@@ -800,19 +795,59 @@ antlrcpp::Any CodeGenVisitor::visitUnsignConstVariable(PascalSParser::UnsignCons
 }
 
 antlrcpp::Any CodeGenVisitor::visitFactor(PascalSParser::FactorContext* ctx) {
-
     Value* value = nullptr;
-    if (ctx->unsignConstVariable()) {
-        value = std::any_cast<llvm::Value*>(visit(ctx->unsignConstVariable()));
+    if (ctx->unsignConstLiteral()) {
+        value = std::any_cast<llvm::Value*>(visit(ctx->unsignConstLiteral()));
     } else if (ctx->variable()) {
-        value = std::any_cast<llvm::Value*>(visit(ctx->variable()));
+        PascalSParser::VariableContext* varCtx = ctx->variable();
+        bool isSimpleID = varCtx->ID() != nullptr && (varCtx->idVarparts() == nullptr || varCtx->idVarparts()->children.empty());
+        std::string idName = "";
+
+        if (isSimpleID) {
+            idName = varCtx->ID()->getText();
+            // Debugging prints (optional, can be removed later)
+            std::cerr << "[Debug visitFactor] Simple ID: " << idName << std::endl;
+            Value* func_lookup_result = subprogram_scope->get(idName);
+
+            if (func_lookup_result == nullptr) {
+                std::cerr << "[Debug visitFactor] Not found in subprogram_scope: " << idName << std::endl;
+            } else {
+                std::cerr << "[Debug visitFactor] Found in subprogram_scope: " << idName 
+                          << ", isFunction: " << llvm::isa<Function>(func_lookup_result) << std::endl;
+                if (llvm::isa<Function>(func_lookup_result)) {
+                    Function* f_debug = llvm::cast<Function>(func_lookup_result);
+                    std::cerr << "[Debug visitFactor]   IsVoidReturn: " << f_debug->getReturnType()->isVoidTy() 
+                              << ", NumParams: " << f_debug->getFunctionType()->getNumParams() << std::endl;
+                }
+            }
+            // End Debugging prints
+
+            // Restore correct conditional logic:
+            if (func_lookup_result != nullptr && llvm::isa<Function>(func_lookup_result)) {
+                Function* func = llvm::cast<Function>(func_lookup_result);
+                if (!func->getReturnType()->isVoidTy() && func->getFunctionType()->getNumParams() == 0) {
+                    std::vector<Value*> args; 
+                    checkFunctionArgs(idName, func, args);
+                    value = builder.CreateCall(func, args, idName + "_implicit_call");
+                } else {
+                    // It's a function, but a procedure or needs arguments. Treat as variable.
+                    value = std::any_cast<llvm::Value*>(visit(ctx->variable()));
+                }
+            } else {
+                // Not found as a function, or not a function. Treat as variable.
+                value = std::any_cast<llvm::Value*>(visit(ctx->variable()));
+            }
+        } else {
+            // Not a simple ID (e.g., array access or record field). Treat as variable.
+            value = std::any_cast<llvm::Value*>(visit(ctx->variable()));
+        }
     } else if (ctx->ID() && ctx->LPAREN() && ctx->expressionList() && ctx->RPAREN()) {
         std::string func_name = ctx->ID()->getText();
         Function* func = (Function*)subprogram_scope->get(func_name);
 
         if (func == nullptr) {
             throw SemanticException(filename, ctx->getStart()->getLine(), ctx->getStart()->getCharPositionInLine(),
-                "identifier '" + func_name + "' was not declared in this scope");
+                "identifier(859) '" + func_name + "' was not declared in this scope");
         } else {
             if (func->getReturnType()->isVoidTy()) {
                 throw SemanticException(filename, ctx->getStart()->getLine(), ctx->getStart()->getCharPositionInLine(),
@@ -830,7 +865,7 @@ antlrcpp::Any CodeGenVisitor::visitFactor(PascalSParser::FactorContext* ctx) {
 
         if (func == nullptr) {
             throw SemanticException(filename, ctx->getStart()->getLine(), ctx->getStart()->getCharPositionInLine(),
-                "identifier '" + func_name + "' was not declared in this scope (function call with no args)");
+                "identifier(877) '" + func_name + "' was not declared in this scope (function call with no args)");
         } else {
             if (func->getReturnType()->isVoidTy()) {
                 throw SemanticException(filename, ctx->getStart()->getLine(), ctx->getStart()->getCharPositionInLine(),
@@ -984,9 +1019,20 @@ antlrcpp::Any CodeGenVisitor::visitVariable(PascalSParser::VariableContext* ctx)
     std::string var_name = ctx->ID()->getText();
     llvm::Value* value = scope->get(var_name);
 
+    if (value == nullptr && !function_name_stack.empty() && var_name == function_name_stack.back()) {
+        if (current_return_value != nullptr && llvm::isa<llvm::AllocaInst>(current_return_value)) {
+            llvm::AllocaInst* current_alloca = llvm::dyn_cast<llvm::AllocaInst>(current_return_value);
+            std::string expected_alloca_name = var_name; 
+            if (current_alloca) { 
+
+                value = current_return_value;
+            }
+        }
+    }
+
     if (value == nullptr) {
         throw SemanticException(filename, ctx->getStart()->getLine(), ctx->getStart()->getCharPositionInLine(),
-            "identifier '" + var_name + "' was not declared in this scope");
+            "identifier(1044) '" + var_name + "' was not declared in this scope");
     }
 
     PascalSParser::IdVarpartsContext* id_varparts_ctx = ctx->idVarparts();
@@ -1015,7 +1061,7 @@ antlrcpp::Any CodeGenVisitor::visitAssignmentStatement(PascalSParser::Assignment
 
     if (!var) {
         throw SemanticException(filename, ctx->getStart()->getLine(), ctx->getStart()->getCharPositionInLine(),
-            "identifier '" + ctx->variable()->ID()->getText() + "' was not declared in this scope");
+            "identifier(1073) '" + ctx->variable()->ID()->getText() + "' was not declared in this scope");
     }
 
     if (!expr) {
@@ -1082,7 +1128,7 @@ antlrcpp::Any CodeGenVisitor::visitCallProcedureStatement(PascalSParser::CallPro
         // 作用域中无该符号
         if (!symbol) {
             throw SemanticException(filename, ctx->getStart()->getLine(), ctx->getStart()->getCharPositionInLine(),
-                "identifier '" + func_name + "' was not declared in this scope");
+                "identifier(1140) '" + func_name + "' was not declared in this scope");
         }
 
         // 该符号不是函数
@@ -1190,3 +1236,4 @@ void CodeGenVisitor::checkFunctionArgs(std::string func_name, llvm::Function* fu
         }
     }
 }
+
