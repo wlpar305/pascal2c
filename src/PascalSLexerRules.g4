@@ -120,7 +120,7 @@ WHILE: W H I L E;
 
 CHARLITERAL: QUOTE . QUOTE;
 
-ID: (LETTER | '_') (LETTER | DIGIT | '_')* ;
+ID: LETTER (LETTER | DIGIT | '_')* ;
 
 LETTER: [a-zA-Z];
 

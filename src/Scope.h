@@ -20,6 +20,9 @@ public:
     std::vector<std::pair<int, int>> getArray(const llvm::Type* type);
     std::map<std::string, int> getRecord(const llvm::Type* type);
 
+    // 根据元素类型查找数组信息
+    std::vector<std::pair<int, int>> findArrayInfoByElementType(const llvm::Type* elementType);
+
     bool declared(const std::string& name);
 
 private:

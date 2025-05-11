@@ -7,6 +7,17 @@
 std::unordered_map<std::string, llvm::Function* (*)(llvm::Module*)> StandardProcedure::prototypeMap;
 std::unordered_map<std::string, void (*)(std::string filename, int line, int column, llvm::IRBuilder<>*, std::vector<llvm::Value*>&)> StandardProcedure::argsConstructorMap;
 
+void StandardProcedure::init() {
+    prototypeMap["write"] = writelnPrototype;
+    prototypeMap["read"] = readlnPrototype;
+    prototypeMap["writeln"] = writelnPrototype;
+    prototypeMap["readln"] = readlnPrototype;
+    argsConstructorMap["write"] = writeArgsConstructor;
+    argsConstructorMap["read"] = readArgsConstructor;
+    argsConstructorMap["writeln"] = writelnArgsConstructor;
+    argsConstructorMap["readln"] = readlnArgsConstructor;
+}
+
 std::string StandardProcedure::getFormatString(llvm::Type* type) {
     if (type->isIntegerTy(8)) {
         return "%c";
@@ -25,17 +36,6 @@ std::string StandardProcedure::getFormatString(llvm::Type* type) {
         rso.flush();
         throw std::runtime_error("Unsupported argument type '" + type_str + "' for write");
     }
-}
-
-void StandardProcedure::init() {
-    prototypeMap["write"] = writelnPrototype;
-    prototypeMap["read"] = readlnPrototype;
-    prototypeMap["writeln"] = writelnPrototype;
-    prototypeMap["readln"] = readlnPrototype;
-    argsConstructorMap["write"] = writeArgsConstructor;
-    argsConstructorMap["read"] = readArgsConstructor;
-    argsConstructorMap["writeln"] = writelnArgsConstructor;
-    argsConstructorMap["readln"] = readlnArgsConstructor;
 }
 
 bool StandardProcedure::hasProcedure(std::string name) {

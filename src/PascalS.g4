@@ -60,7 +60,7 @@ subprogramHead:
 	FUNCTION ID formalParameter COLON standardType SEMICOLON
 	| PROCEDURE ID formalParameter SEMICOLON;
 
-formalParameter: LPAREN parameterLists RPAREN |;
+formalParameter: LPAREN parameterLists RPAREN | LPAREN RPAREN |;
 
 parameterLists:
 	parameterLists SEMICOLON parameterList
@@ -131,6 +131,8 @@ factor:
 	| ID LPAREN RPAREN   
 	| LPAREN expression RPAREN
 	| NOT factor
+	| PLUS factor
+	| MINUS factor
 	| boolean;
 
 unsignConstVariable: ID | NUM | CHARLITERAL;

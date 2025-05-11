@@ -38,8 +38,8 @@ public:
     RuleCaseBody = 31, RuleBranchList = 32, RuleBranch = 33, RuleConstList = 34, 
     RuleUpdown = 35, RuleCallProcedureStatement = 36, RuleExpressionList = 37, 
     RuleExpression = 38, RuleSimpleExpression = 39, RuleTerm = 40, RuleBoolean = 41, 
-    RuleFactor = 42, RuleUnsignConstVariable = 43, RuleRelationalOpreator = 44, 
-    RuleAddOperator = 45, RuleMultiplyOperator = 46
+    RuleFactor = 42, RuleUnsignConstVariable = 43, RuleUnsignConstLiteral = 44, 
+    RuleRelationalOpreator = 45, RuleAddOperator = 46, RuleMultiplyOperator = 47
   };
 
   explicit PascalSParser(antlr4::TokenStream *input);
@@ -103,6 +103,7 @@ public:
   class BooleanContext;
   class FactorContext;
   class UnsignConstVariableContext;
+  class UnsignConstLiteralContext;
   class RelationalOpreatorContext;
   class AddOperatorContext;
   class MultiplyOperatorContext; 
@@ -772,8 +773,8 @@ public:
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *ID();
     antlr4::tree::TerminalNode *LPAREN();
-    ExpressionListContext *expressionList();
     antlr4::tree::TerminalNode *RPAREN();
+    ExpressionListContext *expressionList();
 
 
     virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
@@ -862,7 +863,7 @@ public:
   public:
     FactorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    UnsignConstVariableContext *unsignConstVariable();
+    UnsignConstLiteralContext *unsignConstLiteral();
     VariableContext *variable();
     antlr4::tree::TerminalNode *ID();
     antlr4::tree::TerminalNode *LPAREN();
@@ -871,6 +872,8 @@ public:
     ExpressionContext *expression();
     antlr4::tree::TerminalNode *NOT();
     FactorContext *factor();
+    antlr4::tree::TerminalNode *PLUS();
+    antlr4::tree::TerminalNode *MINUS();
     BooleanContext *boolean();
 
 
@@ -894,6 +897,20 @@ public:
   };
 
   UnsignConstVariableContext* unsignConstVariable();
+
+  class  UnsignConstLiteralContext : public antlr4::ParserRuleContext {
+  public:
+    UnsignConstLiteralContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *NUM();
+    antlr4::tree::TerminalNode *CHARLITERAL();
+
+
+    virtual std::any accept(antlr4::tree::ParseTreeVisitor *visitor) override;
+   
+  };
+
+  UnsignConstLiteralContext* unsignConstLiteral();
 
   class  RelationalOpreatorContext : public antlr4::ParserRuleContext {
   public:

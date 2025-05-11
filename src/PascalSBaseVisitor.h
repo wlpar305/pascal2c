@@ -223,6 +223,10 @@ public:
     return visitChildren(ctx);
   }
 
+  virtual std::any visitUnsignConstLiteral(PascalSParser::UnsignConstLiteralContext *ctx) override {
+    return visitChildren(ctx);
+  }
+
   virtual std::any visitRelationalOpreator(PascalSParser::RelationalOpreatorContext *ctx) override {
     return visitChildren(ctx);
   }

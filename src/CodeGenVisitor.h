@@ -22,8 +22,8 @@ private:
     StandardProcedure standard_procedure;
     LLVMContext context;
     IRBuilder<> builder;
-    Scope* scope = new Scope();
-    Scope* subprogram_scope = new Scope();
+    Scope* global_scope;
+    Scope* current_scope;
     llvm::Value* current_return_value = ConstantInt::get(context, APInt(32, 0));
     std::string filename;
     BasicBlock* current_loop_end;
